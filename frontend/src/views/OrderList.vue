@@ -18,6 +18,7 @@
           <th>ID</th>
           <th>Khách hàng</th>
           <th>Tổng số tiền</th>
+          <th>Address</th>
           <th>Trạng thái</th>
           <th colspan="2">Menu</th>
         </tr>
@@ -27,6 +28,7 @@
           <td>{{ order._id }}</td>
           <td>{{ order.customer.name }}</td>
           <td>{{ formatCurrency(order.totalAmount) }}</td>
+          <td>{{ order.customer.address }}</td>
           <td>{{ order.status }}</td>
           <td><button @click.prevent="onDelete(order._id)">Remove</button></td>
         </tr>
