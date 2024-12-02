@@ -16,7 +16,7 @@ import OrderList from './views/OrderList.vue';
 import UserManagement from './views/UserManagement.vue';
 import ForgotPassword from './views/ForgotPassword.vue';
 import ResetPassword from './views/ResetPassword.vue';
-
+import ProfileAccount from './views/ProfileAccount.vue';
 
 
 
@@ -36,7 +36,7 @@ const routes = [
   { path: "/usermanagement", name: "UserManagerment", component: UserManagement },
   { path: "/forgot-password", component: ForgotPassword },
   { path: "/reset-password/:token", component: ResetPassword },
-  
+  {path: "/profile", component: ProfileAccount},
   
 ];
 
