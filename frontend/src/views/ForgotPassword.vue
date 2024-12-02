@@ -40,7 +40,7 @@
         this.message = "";
         try {
           const response = await axios.post(
-            "http://localhost:5000/api/auth/forgot-password", // Đường dẫn API
+            "https://mevn-deploy-xp07.onrender.com/api/auth/forgot-password", // Đường dẫn API
             { email: this.email }
           );
           this.message = response.data.message;

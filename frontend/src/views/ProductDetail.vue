@@ -67,7 +67,7 @@ export default {
     async fetchProduct() {
       const productId = this.$route.params.id; // Lấy ID sản phẩm từ URL
       try {
-        const response = await axios.get(`http://localhost:5000/api/products/${productId}`);
+        const response = await axios.get(`https://mevn-deploy-xp07.onrender.com/api/products/${productId}`);
         this.product = response.data; // Dữ liệu trả về từ API sẽ được gán vào `product`
       } catch (error) {
         console.error("Failed to fetch product:", error);

@@ -12,7 +12,7 @@
 import axios from 'axios';
 import ProductCard from './ProductCard.vue';
 
-const backend = 'http://localhost:5000/api/products/filter';
+const backend = 'https://mevn-deploy-xp07.onrender.com/api/products/filter';
 
 export default {
   components: { ProductCard },

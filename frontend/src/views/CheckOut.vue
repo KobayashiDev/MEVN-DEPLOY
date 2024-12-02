@@ -79,7 +79,7 @@ export default {
     const userId = this.$store.getters.userId || null; // Lấy userId từ Vuex
 
     // Gửi yêu cầu thanh toán
-    const response = await axios.post('http://localhost:5000/api/orders', {
+    const response = await axios.post('https://mevn-deploy-xp07.onrender.com/api/orders', {
       userId,
       cartItems: this.cartItems,
       totalAmount: this.totalAmount,

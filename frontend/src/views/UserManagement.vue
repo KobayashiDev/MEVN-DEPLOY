@@ -78,7 +78,7 @@ export default {
     // Lấy dữ liệu người dùng từ server
     async fetchUsers() {
       try {
-        const response = await axios.get("http://localhost:5000/api/auth", {
+        const response = await axios.get("https://mevn-deploy-xp07.onrender.com/api/auth", {
           headers: {
             Authorization: `Bearer ${this.authToken}`, // Thêm token vào header
           },
@@ -99,7 +99,7 @@ export default {
       try {
         // Gửi yêu cầu PUT để sửa thông tin người dùng
         await axios.put(
-          `http://localhost:5000/api/auth/${user._id}`,
+          `https://mevn-deploy-xp07.onrender.com/api/auth/${user._id}`,
           {
             firstName: user.firstName,
             lastName: user.lastName,
@@ -126,7 +126,7 @@ export default {
       if (confirm("Bạn có chắc muốn xóa người dùng này?")) {
         try {
           // Gửi yêu cầu DELETE tới server
-          await axios.delete(`http://localhost:5000/api/auth/${userId}`, {
+          await axios.delete(`https://mevn-deploy-xp07.onrender.com/api/auth/${userId}`, {
             headers: {
               Authorization: `Bearer ${this.authToken}`, // Thêm token vào header
             },

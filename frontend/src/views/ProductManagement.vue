@@ -62,7 +62,7 @@ export default {
   async mounted() {
     // Lấy dữ liệu sản phẩm từ API khi component được mount
     try {
-      const response = await axios.get("http://localhost:5000/api/products", {
+      const response = await axios.get("https://mevn-deploy-xp07.onrender.com/api/products", {
         headers: {
           Authorization: `Bearer ${this.authToken}`, // Sử dụng token từ Vuex
         }
@@ -84,7 +84,7 @@ export default {
       if (confirm("Are you sure you want to delete this product?")) {
         try {
           // Gửi yêu cầu DELETE tới server với header Authorization
-          await axios.delete(`http://localhost:5000/api/products/${productId}`, {
+          await axios.delete(`https://mevn-deploy-xp07.onrender.com/api/products/${productId}`, {
             headers: {
               Authorization: `Bearer ${this.authToken}`, // Sử dụng token từ Vuex
             }

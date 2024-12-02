@@ -50,7 +50,7 @@ export default {
 
   async handleLogin() {
   try {
-    const response = await axios.post('http://localhost:5000/api/auth/login', {
+    const response = await axios.post('https://mevn-deploy-xp07.onrender.com/api/auth/login', {
         email: this.email,
         password: this.password
       });

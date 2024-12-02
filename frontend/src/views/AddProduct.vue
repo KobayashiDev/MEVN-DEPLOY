@@ -124,7 +124,7 @@
   
           // Gửi yêu cầu POST đến API backend
           const response = await axios.post(
-            "http://localhost:5000/api/products", // Đổi URL nếu backend chạy trên cổng khác
+            "https://mevn-deploy-xp07.onrender.com/api/products", // Đổi URL nếu backend chạy trên cổng khác
             this.product
           );
   

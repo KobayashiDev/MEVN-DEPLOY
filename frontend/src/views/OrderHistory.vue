@@ -48,7 +48,7 @@ export default {
 
     try {
       // Gửi userId qua route params thay vì query params
-      const response = await axios.get(`http://localhost:5000/api/orders/${userId}`);
+      const response = await axios.get(`https://mevn-deploy-xp07.onrender.com/api/orders/${userId}`);
       
       if (response.data.success) {
         this.orders = response.data.orders; // Gán lịch sử đơn hàng vào `orders`

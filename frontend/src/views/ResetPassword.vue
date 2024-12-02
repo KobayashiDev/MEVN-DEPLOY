@@ -57,7 +57,7 @@
         this.message = "";
         try {
           const response = await axios.post(
-            "http://localhost:5000/api/auth/reset-password", // Đường dẫn API
+            "https://mevn-deploy-xp07.onrender.com/api/auth/reset-password", // Đường dẫn API
             {
               token: this.token,
               newPassword: this.password,

@@ -57,7 +57,7 @@ export default {
       }
 
       try {
-        const response = await axios.post("http://localhost:5000/api/auth/register", {
+        const response = await axios.post("https://mevn-deploy-xp07.onrender.com/api/auth/register", {
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email,

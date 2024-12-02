@@ -60,7 +60,7 @@ export default {
     // Lấy danh sách đơn hàng
     async fetchOrders() {
       try {
-        const response = await axios.get("http://localhost:5000/api/orders", {
+        const response = await axios.get("https://mevn-deploy-xp07.onrender.com/api/orders", {
           headers: {
             Authorization: `Bearer ${this.authToken}`, // Thêm Authorization header với token từ Vuex
           },
@@ -89,7 +89,7 @@ export default {
       if (confirm("Bạn có chắc muốn xóa đơn hàng này?")) {
         try {
           // Gửi yêu cầu DELETE tới server với header Authorization
-          await axios.delete(`http://localhost:5000/api/orders/${orderId}`, {
+          await axios.delete(`https://mevn-deploy-xp07.onrender.com/api/orders/${orderId}`, {
             headers: {
               Authorization: `Bearer ${this.authToken}`, // Thêm Authorization header với token từ Vuex
             },

@@ -14,7 +14,7 @@ const authMiddleware = (req, res, next) => {
 
     // Xác minh token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(decoded); // Xem thông tin trong token
+    
     // Kiểm tra role
     if (decoded.role !== "admin") {
       return res.status(403).json({ success: false, message: "Access denied. Admins only." });

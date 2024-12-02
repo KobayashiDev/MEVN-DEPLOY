@@ -68,7 +68,7 @@ export default {
     try {
       // Lấy thông tin sản phẩm từ API dựa trên ID
       const productId = this.$route.params.id;
-      const response = await axios.get(`http://localhost:5000/api/products/${productId}`, {
+      const response = await axios.get(`https://mevn-deploy-xp07.onrender.com/api/products/${productId}`, {
         headers: {
           Authorization: `Bearer ${this.authToken}`, // Sử dụng token từ Vuex
         }
@@ -91,7 +91,7 @@ export default {
           description: this.descriptionInput.split("\n").map((d) => d.trim()),
         };
         // Gửi yêu cầu cập nhật sản phẩm
-        await axios.put(`http://localhost:5000/api/products/${this.product._id}`, updatedProduct, {
+        await axios.put(`https://mevn-deploy-xp07.onrender.com/api/products/${this.product._id}`, updatedProduct, {
           headers: {
             Authorization: `Bearer ${this.authToken}`, // Sử dụng token từ Vuex
           }
