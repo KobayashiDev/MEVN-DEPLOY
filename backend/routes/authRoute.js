@@ -42,6 +42,9 @@ router.route('/reset-password')
 router.route('/user-info')
   .get(authController.getUserInfo);
 
+  router.route('/change')
+  .post(authController.changePassword)
+
 
 
 module.exports = { path: '/auth', router };

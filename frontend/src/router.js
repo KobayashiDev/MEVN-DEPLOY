@@ -17,7 +17,7 @@ import UserManagement from './views/UserManagement.vue';
 import ForgotPassword from './views/ForgotPassword.vue';
 import ResetPassword from './views/ResetPassword.vue';
 import ProfileAccount from './views/ProfileAccount.vue';
-
+import ChangePass from './views/ChangePass.vue';
 
 
 const routes = [
@@ -37,7 +37,7 @@ const routes = [
   { path: "/forgot-password", component: ForgotPassword },
   { path: "/reset-password/:token", component: ResetPassword },
   {path: "/profile", component: ProfileAccount},
-  
+  {path: "/change",name: "ChangePassword", component: ChangePass}
 ];
 
 const router = createRouter({

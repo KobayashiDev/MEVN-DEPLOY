@@ -227,6 +227,36 @@ const authController = {
       res.status(500).json({ success: false, message: "Server error.", error: err.message });
     }
   },
+  changePassword: async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+
+    try {
+      // Xác thực JWT từ header Authorization
+      const token = req.headers.authorization.split(' ')[1]; // Lấy token từ header
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Giải mã token JWT
+      const userId = decoded.userId; // Lấy userId từ token đã giải mã
+
+      // Tìm user theo ID
+      const user = await User.findById(userId); // Tìm user theo ID trong cơ sở dữ liệu
+      if (!user) return res.status(404).json({ message: "User not found." });
+
+      // Kiểm tra mật khẩu cũ
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: "Mật khẩu cũ không đúng." });
+      }
+
+      // Hash mật khẩu mới và cập nhật
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      await user.save(); // Lưu thông tin user với mật khẩu mới
+
+      res.json({ message: "Đổi mật khẩu thành công!" });
+    } catch (err) {
+      console.error("Lỗi khi đổi mật khẩu:", err.message);
+      res.status(500).json({ message: "Lỗi máy chủ. Vui lòng thử lại sau." });
+    }
+  }
   
   
 };
