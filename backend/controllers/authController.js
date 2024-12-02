@@ -159,7 +159,7 @@ const authController = {
         },
       });
 
-      const resetUrl = `http://localhost:8080/reset-password/${resetToken}`;
+      const resetUrl = `mevn-deploy.vercel.app/reset-password/${resetToken}`;
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
