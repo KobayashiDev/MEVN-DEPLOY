@@ -211,6 +211,22 @@ const authController = {
       res.status(500).json({ success: false, message: "Server error." });
     }
   },
+  getUserInfo: async (req, res) => {
+    try {
+      // Xác thực JWT từ header Authorization
+      const token = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.userId;
+  
+      // Tìm user theo ID
+      const user = await User.findById(userId, '-password'); // Loại bỏ trường password khỏi kết quả
+      if (!user) return res.status(404).json({ success: false, message: "User not found." });
+  
+      res.status(200).json({ success: true, user });
+    } catch (err) {
+      res.status(500).json({ success: false, message: "Server error.", error: err.message });
+    }
+  },
   
   
 };

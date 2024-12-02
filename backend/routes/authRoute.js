@@ -38,6 +38,11 @@ router.route('/forgot-password')
 
 router.route('/reset-password')
   .post(authController.resetPassword);
+  
+router.route('/user-info')
+  .get(authController.getUserInfo);
+
+
 
 module.exports = { path: '/auth', router };
 

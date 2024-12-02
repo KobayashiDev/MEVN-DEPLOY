@@ -17,6 +17,9 @@ import UserManagement from './views/UserManagement.vue';
 import ForgotPassword from './views/ForgotPassword.vue';
 import ResetPassword from './views/ResetPassword.vue';
 
+
+
+
 const routes = [
   { path: '/', name: 'Home', component: HomePage },
   { path: '/login', name: 'Login', component: AppLogin },
@@ -33,6 +36,8 @@ const routes = [
   { path: "/usermanagement", name: "UserManagerment", component: UserManagement },
   { path: "/forgot-password", component: ForgotPassword },
   { path: "/reset-password/:token", component: ResetPassword },
+  
+  
 ];
 
 const router = createRouter({
