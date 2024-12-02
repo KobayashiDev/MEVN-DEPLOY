@@ -19,6 +19,14 @@ export default createStore({
       state.userId = userId;
       localStorage.setItem('userId', userId); // Lưu userId vào localStorage
     },
+    setAuthToken(state, token) {
+      state.authToken = token;
+      if (token) {
+        localStorage.setItem('authToken', token); // Lưu vào localStorage nếu không null
+      } else {
+        localStorage.removeItem('authToken'); // Xóa khỏi localStorage nếu null
+      }
+    }
   },
   actions: {
     login({ commit }, { token, userId, role }) {
@@ -28,6 +36,7 @@ export default createStore({
       commit('setLoggedIn', true);
       commit('setUserId', userId);
       commit('setUserRole', role);
+      commit('setAuthToken', token)
     },
     logout({ commit }) {
       localStorage.removeItem('authToken'); // Xóa token khỏi localStorage
@@ -36,6 +45,7 @@ export default createStore({
       commit('setLoggedIn', false); // Đặt trạng thái là chưa đăng nhập
       commit('setUserRole', null); // Xóa vai trò khi đăng xuất
       commit('setUserId', null); // Xóa userId khi đăng xuất
+      commit('setAuthToken', null); // Xóa token
     },
     setUserRole({ commit }, role) {
       commit('setUserRole', role); // Lưu vai trò vào Vuex
