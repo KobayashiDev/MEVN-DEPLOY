@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 
-require('dotenv').config(); // Nạp biến môi trường từ .env
+require('dotenv').config(); 
 const apiRoutes = require('./routes');
 
 const app = express();
