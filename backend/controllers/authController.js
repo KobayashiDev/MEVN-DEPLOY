@@ -186,20 +186,20 @@ const authController = {
     }
 
     try {
-      // Find user by token and check token expiration
+      
       const user = await User.findOne({
         resetToken: token,
-        resetTokenExpiry: { $gt: Date.now() }, // Token must still be valid
+        resetTokenExpiry: { $gt: Date.now() }, 
       });
 
       if (!user) {
         return res.status(400).json({ success: false, message: "Invalid or expired token." });
       }
 
-      // Hash the new password and update the user
+      // Mã hóa mật khẩu mới và cập nhật user
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       user.password = hashedPassword;
-      user.resetToken = undefined; // Clear token after use
+      user.resetToken = undefined; // Xóa token sau khi dùng
       user.resetTokenExpiry = undefined;
       await user.save();
 
