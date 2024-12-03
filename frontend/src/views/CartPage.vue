@@ -1,22 +1,22 @@
 <template>
   <div class="cart-container">
-    <!-- Bên trái: Giỏ hàng -->
+   
     <div class="cart-items-section">
-      <h2>Giỏ hàng của bạn</h2>
-      <p>Bạn đang có {{ cartItems.length }} sản phẩm trong giỏ hàng</p>
+      <h2>Your Cart</h2>
+      <p>You Have {{ cartItems.length }} items in cart</p>
 
       <div v-for="item in cartItems" :key="item.id" class="cart-item">
-        <!-- Ảnh sản phẩm -->
+        
         <img :src="item.imageUrl" alt="Product Image" class="item-image" />
 
-        <!-- Chi tiết sản phẩm -->
+        
         <div class="item-details">
           <h3>{{ item.name }}</h3>
           <p>Size: {{ item.size }}</p>
           <p>{{ formatPrice(item.price) }}</p>
         </div>
 
-        <!-- Chọn số lượng -->
+        
         <div class="item-quantity">
           <button @click="decreaseQuantity(item)">-</button>
           <span>{{ item.quantity }}</span>
@@ -26,9 +26,9 @@
       </div>
     </div>
 
-    <!-- Bên phải: Thông tin đơn hàng -->
+    <
     <div class="order-summary">
-      <h2>Thông tin đơn hàng</h2>
+      <h2>Order information</h2>
       <p class="total-price">Total amount: <span>{{ formatPrice(totalAmount) }}</span></p>
       
       <router-link to="/checkout">
@@ -42,58 +42,58 @@
 export default {
   data() {
     return {
-      cartItems: [], // Giỏ hàng
+      cartItems: [], 
     };
   },
   computed: {
-    // Tính toán tổng số tiền
+    
     totalAmount() {
       return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     },
   },
   methods: {
-    // Định dạng giá trị
+    
     formatPrice(value) {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
       }).format(value);
     },
-    // Tăng số lượng sản phẩm
+    
     increaseQuantity(item) {
       item.quantity++;
       this.updateCart();
     },
-    // Giảm số lượng sản phẩm
+    
     decreaseQuantity(item) {
       if (item.quantity > 1) {
         item.quantity--;
         this.updateCart();
       }
     },
-    // Xóa sản phẩm khỏi giỏ hàng
+    
     removeItem(item) {
       this.cartItems = this.cartItems.filter((i) => i.id !== item.id);
       this.updateCart();
     },
-    // Cập nhật giỏ hàng vào Local Storage
+   
     updateCart() {
       localStorage.setItem("cart", JSON.stringify(this.cartItems));
     },
-    // Lấy giỏ hàng từ Local Storage
+ 
     fetchCartItems() {
       const cart = JSON.parse(localStorage.getItem("cart"));
       if (cart) {
         this.cartItems = cart;
       }
     },
-    // Thanh toán
+   
     checkout() {
       alert("payment");
     },
   },
   created() {
-    // Lấy giỏ hàng khi trang được tạo
+  
     this.fetchCartItems();
   },
 };
