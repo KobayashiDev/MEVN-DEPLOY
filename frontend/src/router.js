@@ -54,10 +54,10 @@ router.beforeEach((to, from, next) => {
   // Nếu chưa đăng nhập và truy cập vào trang yêu cầu phải đăng nhập
   if (to.path === '/management' || to.path === '/usermanagement' || to.path === '/orderlist') {
     if (!isLoggedIn) {
-      alert('Bạn cần đăng nhập để truy cập trang này.');
+      alert('You need to login to access this page.');
       next('/login');  // Điều hướng về trang login
     } else if (userRole !== 'admin') {
-      alert('Bạn không có quyền truy cập trang này.');
+      alert('You do not have permission to access this page.');
       next('/');  // Điều hướng về trang chủ nếu không phải là admin
     } else {
       next();  // Cho phép truy cập nếu đã đăng nhập và là admin
