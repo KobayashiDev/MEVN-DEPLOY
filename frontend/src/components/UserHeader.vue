@@ -1,9 +1,11 @@
 <template>
   <header>
     <div class="container">
-      <div class="logo">
+      <router-link to="/">
+        <div class="logo">
         <img :src="brandLogo" alt="Brand Logo" />
       </div>
+      </router-link>
       <nav>
         <ul>
           <li><router-link to="/">HOME</router-link></li>

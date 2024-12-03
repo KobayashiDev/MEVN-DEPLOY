@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Sử dụng biến môi trường từ .env
-const mongoURI = process.env.MONGODB_URI; // Lấy chuỗi kết nối MongoDB từ .env
-const PORT = process.env.PORT || 5000; // Lấy cổng từ .env, mặc định là 5000 nếu không có
+// Use environment variables from .env
+const mongoURI = process.env.MONGODB_URI; // Get MongoDB connection string from .env
+const PORT = process.env.PORT || 5000; // Get port from .env, default is 5000 if not present
 
 mongoose.connect(mongoURI)
   .then(() => console.log('Connected to MongoDB'))
