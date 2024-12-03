@@ -22,11 +22,11 @@
           <span>{{ item.quantity }}</span>
           <button @click="increaseQuantity(item)">+</button>
         </div>
-        <button @click="removeItem(item)" class="remove-item">delete</button>
+        <button @click="removeItem(item)" class="remove-item">Delete</button>
       </div>
     </div>
 
-    <
+    
     <div class="order-summary">
       <h2>Order information</h2>
       <p class="total-price">Total amount: <span>{{ formatPrice(totalAmount) }}</span></p>
