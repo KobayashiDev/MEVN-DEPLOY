@@ -78,11 +78,113 @@
   </script>
   
   <style scoped>
+  /* Container styling */
+  .reset-password {
+    max-width: 400px;
+    margin: 50px auto; /* Center the container */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Heading styling */
+  .reset-password h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form styling */
+  .reset-password form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Label styling */
+  .reset-password label {
+    text-align: left;
+    font-weight: 500;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Input field styling */
+  .reset-password input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  /* Input focus effect */
+  .reset-password input[type="password"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Button styling */
+  .reset-password button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Disabled button styling */
+  .reset-password button:disabled {
+    background-color: #a5c6ff;
+    cursor: not-allowed;
+  }
+  
+  /* Button hover effect */
+  .reset-password button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
+  /* Message styling */
+  .reset-password p {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  /* Success message */
   .success {
     color: green;
   }
+  
+  /* Error message */
   .error {
     color: red;
   }
+  
+  /* Responsive Design */
+  @media (max-width: 500px) {
+    .reset-password {
+      padding: 15px;
+      margin: 20px auto;
+    }
+  
+    .reset-password h2 {
+      font-size: 20px;
+    }
+  
+    .reset-password button {
+      font-size: 14px;
+    }
+  }
   </style>
+  
   
