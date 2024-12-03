@@ -40,7 +40,7 @@
       return {
         password: "",
         confirmPassword: "",
-        token: this.$route.params.token, 
+        token: this.$route.params.token, // Lấy token từ URL
         message: "",
         success: false,
         loading: false,
@@ -57,7 +57,7 @@
         this.message = "";
         try {
           const response = await axios.post(
-            "https://mevn-deploy-xp07.onrender.com/api/auth/reset-password", 
+            "https://mevn-deploy-xp07.onrender.com/api/auth/reset-password", // Đường dẫn API
             {
               token: this.token,
               newPassword: this.password,

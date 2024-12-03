@@ -1,7 +1,7 @@
-
+<!-- Home.vue -->
 <template>
   <div class="home-container">
-   
+    <!-- Sorting Dropdown Component (placed at the top) -->
      <div class="sort">
         <SortDropdown @sort-changed="handleSortChanged" />
      </div>
@@ -36,7 +36,7 @@ export default {
       brands: ["Calvin Klein", "Diesel", "Polo", "Tommy Hilfiger"],
       minPrice: 0,
       maxPrice: 1000,
-      selectedSort: 'default', 
+      selectedSort: 'default', // Default value for the sort option
       filters: {
         category: [],
         brand: [],
@@ -50,36 +50,37 @@ export default {
       this.filters = filters;
     },
     handleSortChanged(sort) {
-      this.selectedSort = sort; 
+      this.selectedSort = sort; // Update the sort value when the user changes the selection
     }
   }
 };
 </script>
 
 <style scoped>
+/* Main container holding all components */
 .home-container {
   display: flex;
-  flex-direction: column; 
-  gap: 20px; 
+  flex-direction: column; /* Arrange components vertically */
+  gap: 20px; /* Space between components */
 }
 
-
+/* Styling for the main content (sidebar + product list) */
 .main-content {
   display: flex;
-  gap: 20px; 
+  gap: 20px; /* Space between Sidebar and ProductList */
   margin-left: 130px;
 }
 
-
+/* Define size for Sidebar */
 .main-content > FilterSidebar {
-  flex: 1; 
-  max-width: 250px; 
+  flex: 1; /* Sidebar takes 1 part */
+  max-width: 250px; /* Set a maximum width */
 }
 
-
+/* Define size for ProductList */
 .main-content > ProductList {
-  flex: 3; 
-  width: 100%; 
+  flex: 3; /* ProductList takes more space */
+  width: 100%; /* Let ProductList take the remaining space */
 }
 .sort{
   margin-left: 675px ;

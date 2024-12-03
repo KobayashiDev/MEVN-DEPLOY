@@ -12,7 +12,7 @@ const productController = {
     }
   },
 
-  // Filter products
+  // Product filter
   filterProducts: async (req, res) => {
     try {
       const { category, brand, minPrice, maxPrice } = req.query;
@@ -36,12 +36,12 @@ const productController = {
         if (minPrice) {
           filter.price.$gte = Number(minPrice); // Price greater than or equal to minPrice
         }
-        if (maxPrice) {
+        if (maxPrice) { 
           filter.price.$lte = Number(maxPrice); // Price less than or equal to maxPrice
         }
       }
 
-      // Execute the search query with the filter conditions
+      // Perform query to search based on the conditions
       const products = await Product.find(filter);
       res.json(products);
       console.log("Query Params:", req.query);
@@ -56,7 +56,7 @@ const productController = {
   getProductById: async (req, res) => {
     try {
       const product = await Product.findById(req.params.id);
-      console.log("Products Data:", product);
+      console.log("Products Data:", product); // Log data for verification
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
@@ -69,11 +69,13 @@ const productController = {
   // Edit product by ID
   editProductById: async (req, res) => {
     try {
-      const id = req.params.id;
-      const data = req.body;
+      const id = req.params.id; // Get ID from URL
+      const data = req.body;     // Get new data from the request body
 
+      // Update the product in the DB using findByIdAndUpdate
       await Product.findByIdAndUpdate(id, data);
 
+      // Return success message
       res.json({ message: "Product updated successfully!" });
     } catch (err) {
       res.status(500).send(err);
@@ -95,7 +97,7 @@ const productController = {
     }
   },
 
-  // Add a new product
+  // Add new product
   addNewProduct: async (req, res) => {
     try {
       const product = req.body;
@@ -106,6 +108,7 @@ const productController = {
       res.status(500).json({ message: 'Failed to add product', error: err.message });
     }
   }
+  
 };
 
 module.exports = productController;

@@ -15,11 +15,11 @@
         </tr>
       </thead>
       <tbody>
-       
+        <!-- Loop through the list of products and display each product -->
         <tr v-for="(product, index) in products" :key="index">
-         
+          <!-- Display image -->
           <td><img :src="product.imageUrl" alt="Product Image" class="product-img" /></td>
-          
+          <!-- Display information -->
           <td>{{ product.name }}</td>
           <td>{{ formatCurrency(product.price) }}</td>
           <td>{{ product.category }}</td>
@@ -31,7 +31,7 @@
             </span>
           </td>
           <td>
-            
+            <!-- Use router-link with name and params -->
             <router-link
               class="ui button yellow"
               :to="{ name: 'Edit', params: { id: product._id } }"
@@ -53,18 +53,18 @@ import axios from "axios";
 export default {
   data() {
     return {
-      products: [], 
+      products: [], // List of products
     };
   },
   computed: {
-    ...mapGetters(['authToken']), 
+    ...mapGetters(['authToken']), // Get token from Vuex
   },
   async mounted() {
-   
+    // Fetch product data from the API when the component is mounted
     try {
       const response = await axios.get("https://mevn-deploy-xp07.onrender.com/api/products", {
         headers: {
-          Authorization: `Bearer ${this.authToken}`, 
+          Authorization: `Bearer ${this.authToken}`, // Use the token from Vuex
         }
       });
       this.products = response.data;
@@ -73,7 +73,7 @@ export default {
     }
   },
   methods: {
-    
+    // Format product price
     formatCurrency(value) {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -83,14 +83,14 @@ export default {
     async onDelete(productId) {
       if (confirm("Are you sure you want to delete this product?")) {
         try {
-          
+          // Send DELETE request to the server with Authorization header
           await axios.delete(`https://mevn-deploy-xp07.onrender.com/api/products/${productId}`, {
             headers: {
-              Authorization: `Bearer ${this.authToken}`, 
+              Authorization: `Bearer ${this.authToken}`, // Use the token from Vuex
             }
           });
 
-          
+          // Remove the product from the list `products` (no need to reload the entire page)
           this.products = this.products.filter(
             (product) => product._id !== productId
           );

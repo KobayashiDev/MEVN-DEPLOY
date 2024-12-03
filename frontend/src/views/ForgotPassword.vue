@@ -40,7 +40,7 @@
         this.message = "";
         try {
           const response = await axios.post(
-            "https://mevn-deploy-xp07.onrender.com/api/auth/forgot-password", 
+            "https://mevn-deploy-xp07.onrender.com/api/auth/forgot-password", // API
             { email: this.email }
           );
           this.message = response.data.message;

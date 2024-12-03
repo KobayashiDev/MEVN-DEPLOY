@@ -8,7 +8,7 @@
       <li v-for="order in orders" :key="order._id">
         <h3>Order ID: {{ order._id }}</h3>
         
-        <!-- Hiển thị từng sản phẩm trong cartItems -->
+        <!-- Display each product in cartItems -->
         <h4>Items:</h4>
         <ul>
           <li v-for="item in order.cartItems" :key="item._id">
@@ -20,7 +20,7 @@
           </li>
         </ul>
         
-        <!-- Hiển thị tổng tiền -->
+        <!-- Display total amount -->
         <p>Total Amount: ${{ order.totalAmount }}</p>
         <p>Date: {{ new Date(order.createdAt).toLocaleString() }}</p>
       </li>
@@ -38,7 +38,7 @@ export default {
     };
   },
   async created() {
-    const userId = this.$store.getters.userId  
+    const userId = this.$store.getters.userId  // Get userId from route params
     
     if (!userId) {
       alert('User ID is missing. Please log in again.');
@@ -47,11 +47,11 @@ export default {
     }
 
     try {
-     
+      // Send userId through route params instead of query params
       const response = await axios.get(`https://mevn-deploy-xp07.onrender.com/api/orders/${userId}`);
       
       if (response.data.success) {
-        this.orders = response.data.orders; 
+        this.orders = response.data.orders; // Assign order history to `orders`
       } else {
         alert('No orders found.');
       }
@@ -63,10 +63,8 @@ export default {
 };
 </script>
 
-
-
 <style scoped>
-
+/* General layout for the entire page */
 div {
   font-family: 'Arial', sans-serif;
   color: #333;
@@ -78,7 +76,7 @@ div {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
+/* Main title */
 h1 {
   text-align: center;
   color: #4CAF50;
@@ -86,14 +84,14 @@ h1 {
   font-size: 28px;
 }
 
-
+/* No order history */
 p {
   text-align: center;
   font-size: 16px;
   color: #999;
 }
 
-
+/* Order list */
 ul {
   list-style: none;
   padding: 0;
@@ -109,20 +107,20 @@ li {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-
+/* Hover effect for each order */
 li:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-
+/* Order header */
 h3 {
   font-size: 20px;
   color: #333;
   margin-bottom: 10px;
 }
 
-
+/* Order details */
 p {
   margin: 5px 0;
   font-size: 16px;
@@ -133,17 +131,16 @@ p span {
   color: #555;
 }
 
-
+/* Total amount color */
 p:nth-of-type(2) {
   color: #e91e63;
   font-weight: bold;
 }
 
-
+/* Date */
 p:last-of-type {
   font-size: 14px;
   color: #777;
   font-style: italic;
 }
-
 </style>

@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1>List of users</h1>
+    <h1>User List</h1>
 
-   
-    <input v-model="searchTerm" placeholder="Tìm kiếm theo tên hoặc email" />
+    <!-- Search Box -->
+    <input v-model="searchTerm" placeholder="Search by name or email" />
 
     <table class="user-table">
       <thead>
         <tr>
-          <th>Surname</th>
-          <th>Name</th>
+          <th>First Name</th>
+          <th>Last Name</th>
           <th>Email</th>
           <th>Role</th>
           <th colspan="2">Menu</th>
@@ -53,13 +53,13 @@ import axios from "axios";
 export default {
   data() {
     return {
-      users: [], 
-      searchTerm: "", 
+      users: [], // Array to store user information
+      searchTerm: "", // Variable to store the search keyword
     };
   },
   computed: {
-    ...mapGetters(["authToken"]), 
-    
+    ...mapGetters(["authToken"]), // Get authToken from Vuex
+    // Computed property to filter users based on search term
     filteredUsers() {
       return this.users.filter((user) => {
         const searchTerm = this.searchTerm.toLowerCase();
@@ -72,32 +72,32 @@ export default {
     },
   },
   created() {
-    this.fetchUsers(); 
+    this.fetchUsers(); // Fetch user data when the component is created
   },
   methods: {
-    
+    // Fetch user data from the server
     async fetchUsers() {
       try {
         const response = await axios.get("https://mevn-deploy-xp07.onrender.com/api/auth", {
           headers: {
-            Authorization: `Bearer ${this.authToken}`, 
+            Authorization: `Bearer ${this.authToken}`, // Add token to the header
           },
         });
-        this.users = response.data; 
+        this.users = response.data; // Assign the fetched data to the users array
       } catch (error) {
-        console.error("Error loading user:", error);
+        console.error("Error loading users:", error);
       }
     },
 
-    
+    // Method to edit user information
     onEdit(user) {
-      user.isEditing = true; 
+      user.isEditing = true; // Mark the user as being edited
     },
 
-   
+    // Method to save edited user information
     async onSave(user) {
       try {
-        
+        // Send a PUT request to update user information
         await axios.put(
           `https://mevn-deploy-xp07.onrender.com/api/auth/${user._id}`,
           {
@@ -108,36 +108,36 @@ export default {
           },
           {
             headers: {
-              Authorization: `Bearer ${this.authToken}`, 
+              Authorization: `Bearer ${this.authToken}`, // Add token to the header
             },
           }
         );
 
-        user.isEditing = false; 
+        user.isEditing = false; // Disable editing mode after saving
         alert("User updated successfully!");
       } catch (error) {
-        console.error("Error while editing user:", error);
+        console.error("Error editing user:", error);
         alert("Unable to update user. Please try again.");
       }
     },
 
-    
+    // Method to delete a user
     async onDelete(userId) {
       if (confirm("Are you sure you want to delete this user?")) {
         try {
-          
+          // Send a DELETE request to the server
           await axios.delete(`https://mevn-deploy-xp07.onrender.com/api/auth/${userId}`, {
             headers: {
-              Authorization: `Bearer ${this.authToken}`, 
+              Authorization: `Bearer ${this.authToken}`, // Add token to the header
             },
           });
 
-         
+          // Update the user list immediately
           this.users = this.users.filter((user) => user._id !== userId);
 
           alert("User deleted successfully!");
         } catch (err) {
-          console.error("Error while deleting user:", err);
+          console.error("Error deleting user:", err);
           alert("Unable to delete user. Please try again.");
         }
       }
@@ -146,23 +146,20 @@ export default {
 };
 </script>
 
-  
-  
-  <style scoped>
-  .user-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .user-table th, .user-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .user-table th {
-    background-color: #f2f2f2;
-  }
-  </style>
-  
+<style scoped>
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th, .user-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
+}
+</style>

@@ -1,12 +1,12 @@
 <template>
   <div class="product-detail">
-    <!-- Hình ảnh sản phẩm -->
+    <!-- Product Image -->
     <div class="image-section">
       <div class="badge" v-if="product.isOnSale">SALE</div>
       <img :src="product.imageUrl" alt="Product Image" class="product-image" />
     </div>
 
-    <!-- Thông tin sản phẩm -->
+    <!-- Product Information -->
     <div class="info-section">
       <h1 class="product-title">{{ product.name }}</h1>
       <div class="price-section">
@@ -17,7 +17,7 @@
         </p>
       </div>
 
-      <!-- Chọn size -->
+      <!-- Select Size -->
       <div class="size-options">
         <button
           v-for="size in product.size"
@@ -29,7 +29,7 @@
         </button>
       </div>
 
-      <!-- Điều khiển số lượng và thêm vào giỏ hàng -->
+      <!-- Quantity controls and Add to Cart -->
       <div class="actions">
         <div class="quantity-controls">
           <div class="quantity-container">
@@ -41,7 +41,7 @@
         <button class="add-to-cart" @click="addToCart">ADD TO CART</button>
       </div>
 
-      <!-- Mô tả sản phẩm -->
+      <!-- Product Description -->
       <div class="product-description">
         <h3>Description:</h3>
         <ul>
@@ -53,28 +53,28 @@
 </template>
 
 <script>
-import axios from 'axios'; 
+import axios from 'axios'; // This line was missing and has been added
 
 export default {
   data() {
     return {
-      product: {}, 
-      selectedSize: null, 
-      quantity: 1, 
+      product: {}, // Store product data
+      selectedSize: null, // Selected size
+      quantity: 1, // Default quantity
     };
   },
   methods: {
     async fetchProduct() {
-      const productId = this.$route.params.id; 
+      const productId = this.$route.params.id; // Get product ID from URL
       try {
         const response = await axios.get(`https://mevn-deploy-xp07.onrender.com/api/products/${productId}`);
-        this.product = response.data;
+        this.product = response.data; // The data returned from the API will be assigned to `product`
       } catch (error) {
         console.error("Failed to fetch product:", error);
       }
     },
     selectSize(size) {
-      this.selectedSize = size; 
+      this.selectedSize = size; // Store selected size
     },
     changeQuantity(amount) {
       const newQuantity = this.quantity + amount;
@@ -88,47 +88,43 @@ export default {
         return;
       }
 
-      
+      // Prepare product information to save to the cart
       const cartItem = {
-        id: this.product.id, 
-        name: this.product.name, 
-        price: this.product.isOnSale ? this.product.price : this.product.originalPrice, 
-        size: this.selectedSize, 
-        quantity: this.quantity, 
-        imageUrl: this.product.imageUrl, 
+        id: this.product.id, // Product ID
+        name: this.product.name, // Product name
+        price: this.product.isOnSale ? this.product.price : this.product.originalPrice, // Price
+        size: this.selectedSize, // Size
+        quantity: this.quantity, // Quantity
+        imageUrl: this.product.imageUrl, // Product image
       };
 
-      
+      // Get the current cart from Local Storage (or create a new one if it doesn't exist)
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-     
+      // Check if the product already exists in the cart (same ID and size)
       const existingItemIndex = cart.findIndex(
         (item) => item.id === cartItem.id && item.size === cartItem.size
       );
 
       if (existingItemIndex !== -1) {
-        
+        // If the product exists, update the quantity
         cart[existingItemIndex].quantity += cartItem.quantity;
       } else {
-        
+        // If the product doesn't exist, add it to the cart
         cart.push(cartItem);
       }
 
-     
+      // Save the updated cart to Local Storage
       localStorage.setItem("cart", JSON.stringify(cart));
 
       alert("Product added to cart successfully!");
     },
   },
   created() {
-    this.fetchProduct(); 
+    this.fetchProduct(); // Fetch product data when the component is created
   },
 };
 </script>
-
-
-
-
 
 <style scoped>
 .product-detail{
@@ -204,14 +200,10 @@ export default {
 .actions button {
   margin: 10px 5px;
   padding: 10px 20px;
-  
-  
   border: none;
   cursor: pointer;
   transition: 0.3s;
 }
-
-
 
 .product-description {
   margin-top: 20px;
@@ -227,38 +219,35 @@ export default {
   height: 50px;
   background-color: #000;
   color: white;
-  
+}
 
-}
 .add-to-cart:hover {
-    background-color: rgb(49, 49, 49); 
-    
-    
-    
+    background-color: rgb(49, 49, 49); /* Background color changes on hover (darker color) */
 }
+
 .actions{
   display: flex;
 }
 
-
+/* Container for quantity buttons */
 .quantity-container {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #000; 
-  border-radius: 30px; 
-  padding: 2px 5px; 
+  border: 1px solid #000; /* Border */
+  border-radius: 30px; /* Rounded corners */
+  padding: 2px 5px; /* Inner spacing */
   background-color: white;
   margin-top: 12px;
 }
 
-
+/* Minus and Plus buttons */
 .quantity-btn {
   background-color: transparent;
   border: none;
-  font-size: 12px; 
+  font-size: 12px; /* Smaller font size */
   font-weight: bold;
-  width: 20px; 
-  height: 20px; 
+  width: 20px; /* Smaller button */
+  height: 20px; /* Smaller button */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -266,13 +255,10 @@ export default {
   color: #000;
 }
 
-
-
-
-
+/* Display quantity in the middle */
 .quantity-display {
-  margin: 0 5px; 
-  font-size: 12px; 
+  margin: 0 5px; /* Narrow the space */
+  font-size: 12px; /* Smaller font size */
   font-weight: bold;
 }
 
