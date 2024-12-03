@@ -22,7 +22,7 @@
           <span>{{ item.quantity }}</span>
           <button @click="increaseQuantity(item)">+</button>
         </div>
-        <button @click="removeItem(item)" class="remove-item">Xóa</button>
+        <button @click="removeItem(item)" class="remove-item">delete</button>
       </div>
     </div>
 

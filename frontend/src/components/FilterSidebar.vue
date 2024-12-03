@@ -86,9 +86,9 @@ export default {
   },
   data() {
     return {
-      selectedCategorys: [], // Danh mục được chọn
-      selectedBrands: [], // Các thương hiệu được chọn
-      priceRange: [this.minPrice, this.maxPrice], // Giá trị mặc định cho thanh trượt
+      selectedCategorys: [],
+      selectedBrands: [], 
+      priceRange: [this.minPrice, this.maxPrice], 
     };
   },
   methods: {
@@ -100,14 +100,14 @@ export default {
         maxPrice: this.priceRange[1],
       };
       
-      this.$emit('filter-applied', filters); // Phát sự kiện filter-applied với các bộ lọc
+      this.$emit('filter-applied', filters); 
     }
   }
 };
 </script>
 
 <style scoped>
-/* Kiểu dáng tổng thể */
+
 .filter-sidebar {
   font-family: Arial, sans-serif;
   font-size: 14px;
@@ -124,14 +124,14 @@ export default {
   
 }
 
-/* Tiêu đề mỗi phần */
+
 .filter-title {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-/* Danh sách bộ lọc */
+
 .filter-list {
   list-style: none;
   padding: 0;
@@ -148,7 +148,7 @@ export default {
   cursor: pointer;
 }
 
-/* Phạm vi giá */
+
 .price-range {
   display: flex;
   flex-direction: column;
@@ -169,7 +169,7 @@ export default {
   background-color: #f9f9f9;
 }
 
-/* Nút lọc */
+
 .filter-button {
   display: inline-block;
   width: 100%;

@@ -18,12 +18,12 @@ export default {
   components: { ProductCard },
   props: {
     filters: Object,
-    sort: String // Nhận giá trị sắp xếp từ Home.vue
+    sort: String 
   },
   data() {
     return {
       products: [],
-      originalProducts: [] // Lưu trữ danh sách sản phẩm gốc
+      originalProducts: [] 
     };
   },
   watch: {
@@ -35,7 +35,7 @@ export default {
     },
     sort: {
       handler() {
-        this.applySort(); // Áp dụng sắp xếp mỗi khi `sort` thay đổi
+        this.applySort(); 
       }
     }
   },
@@ -47,21 +47,21 @@ export default {
       try {
         const response = await axios.get(backend, { params: this.filters });
         this.products = response.data;
-        this.originalProducts = [...this.products]; // Lưu trữ sản phẩm gốc
-        this.applySort(); // Áp dụng sắp xếp sau khi lấy dữ liệu
+        this.originalProducts = [...this.products]; 
+        this.applySort(); 
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     },
     applySort() {
       if (this.sort === 'price-asc') {
-        // Sắp xếp theo giá tăng dần
+        
         this.products = [...this.originalProducts].sort((a, b) => a.price - b.price);
       } else if (this.sort === 'price-desc') {
-        // Sắp xếp theo giá giảm dần
+        
         this.products = [...this.originalProducts].sort((a, b) => b.price - a.price);
       } else {
-        // Khi là Default Sorting, quay lại sản phẩm gốc (không sắp xếp)
+        
         this.products = [...this.originalProducts];
       }
     }
@@ -83,20 +83,20 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   
   padding: 20px ;
-  grid-template-columns: repeat(3, 250px); /* 3 cột cố định */
+  grid-template-columns: repeat(3, 250px); 
   justify-content: center;
 }
 
 .no-products {
   font-size: 18px;
   color: gray;
-  text-align: center; /* Căn giữa chữ theo chiều ngang */
+  text-align: center; 
   
-  /* Để căn giữa theo chiều dọc */
+  
   position: absolute;
   top: 40%;
   left: 55%;
-  transform: translate(-50%, -50%); /* Dịch chuyển từ vị trí trung tâm của phần tử */
+  transform: translate(-50%, -50%); 
   
   }
 </style>

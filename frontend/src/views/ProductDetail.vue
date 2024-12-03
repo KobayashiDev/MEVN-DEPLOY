@@ -53,28 +53,28 @@
 </template>
 
 <script>
-import axios from 'axios'; // Đây là dòng bị thiếu và đã được thêm vào
+import axios from 'axios'; 
 
 export default {
   data() {
     return {
-      product: {}, // Lưu dữ liệu sản phẩm
-      selectedSize: null, // Kích cỡ được chọn
-      quantity: 1, // Số lượng mặc định
+      product: {}, 
+      selectedSize: null, 
+      quantity: 1, 
     };
   },
   methods: {
     async fetchProduct() {
-      const productId = this.$route.params.id; // Lấy ID sản phẩm từ URL
+      const productId = this.$route.params.id; 
       try {
         const response = await axios.get(`https://mevn-deploy-xp07.onrender.com/api/products/${productId}`);
-        this.product = response.data; // Dữ liệu trả về từ API sẽ được gán vào `product`
+        this.product = response.data;
       } catch (error) {
         console.error("Failed to fetch product:", error);
       }
     },
     selectSize(size) {
-      this.selectedSize = size; // Lưu kích cỡ được chọn
+      this.selectedSize = size; 
     },
     changeQuantity(amount) {
       const newQuantity = this.quantity + amount;
@@ -88,40 +88,40 @@ export default {
         return;
       }
 
-      // Chuẩn bị thông tin sản phẩm để lưu vào giỏ hàng
+      
       const cartItem = {
-        id: this.product.id, // ID sản phẩm
-        name: this.product.name, // Tên sản phẩm
-        price: this.product.isOnSale ? this.product.price : this.product.originalPrice, // Giá
-        size: this.selectedSize, // Kích cỡ
-        quantity: this.quantity, // Số lượng
-        imageUrl: this.product.imageUrl, // Ảnh sản phẩm
+        id: this.product.id, 
+        name: this.product.name, 
+        price: this.product.isOnSale ? this.product.price : this.product.originalPrice, 
+        size: this.selectedSize, 
+        quantity: this.quantity, 
+        imageUrl: this.product.imageUrl, 
       };
 
-      // Lấy giỏ hàng hiện tại từ Local Storage (hoặc tạo mới nếu chưa có)
+      
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-      // Kiểm tra nếu sản phẩm đã tồn tại trong giỏ hàng (cùng ID và size)
+     
       const existingItemIndex = cart.findIndex(
         (item) => item.id === cartItem.id && item.size === cartItem.size
       );
 
       if (existingItemIndex !== -1) {
-        // Nếu sản phẩm đã tồn tại, cập nhật số lượng
+        
         cart[existingItemIndex].quantity += cartItem.quantity;
       } else {
-        // Nếu sản phẩm chưa tồn tại, thêm mới vào giỏ hàng
+        
         cart.push(cartItem);
       }
 
-      // Lưu lại giỏ hàng vào Local Storage
+     
       localStorage.setItem("cart", JSON.stringify(cart));
 
       alert("Product added to cart successfully!");
     },
   },
   created() {
-    this.fetchProduct(); // Lấy dữ liệu sản phẩm khi component được tạo
+    this.fetchProduct(); 
   },
 };
 </script>
@@ -231,7 +231,7 @@ export default {
 
 }
 .add-to-cart:hover {
-    background-color: rgb(49, 49, 49); /* Màu nền thay đổi khi di chuột vào (màu tối hơn) */
+    background-color: rgb(49, 49, 49); 
     
     
     
@@ -240,25 +240,25 @@ export default {
   display: flex;
 }
 
-/* Container cho nút chỉnh số lượng */
+
 .quantity-container {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #000; /* Đường viền */
-  border-radius: 30px; /* Bo góc */
-  padding: 2px 5px; /* Khoảng cách bên trong */
+  border: 1px solid #000; 
+  border-radius: 30px; 
+  padding: 2px 5px; 
   background-color: white;
   margin-top: 12px;
 }
 
-/* Nút trừ và cộng */
+
 .quantity-btn {
   background-color: transparent;
   border: none;
-  font-size: 12px; /* Thu nhỏ font chữ */
+  font-size: 12px; 
   font-weight: bold;
-  width: 20px; /* Thu nhỏ nút */
-  height: 20px; /* Thu nhỏ nút */
+  width: 20px; 
+  height: 20px; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -269,10 +269,10 @@ export default {
 
 
 
-/* Số lượng hiển thị ở giữa */
+
 .quantity-display {
-  margin: 0 5px; /* Thu hẹp khoảng cách */
-  font-size: 12px; /* Thu nhỏ font chữ */
+  margin: 0 5px; 
+  font-size: 12px; 
   font-weight: bold;
 }
 

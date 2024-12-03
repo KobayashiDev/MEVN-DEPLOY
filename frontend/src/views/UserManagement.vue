@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h1>Danh sách người dùng</h1>
+    <h1>List of users</h1>
 
-    <!-- Ô tìm kiếm -->
+   
     <input v-model="searchTerm" placeholder="Tìm kiếm theo tên hoặc email" />
 
     <table class="user-table">
       <thead>
         <tr>
-          <th>Họ</th>
-          <th>Tên</th>
+          <th>Surname</th>
+          <th>Name</th>
           <th>Email</th>
-          <th>Vai trò</th>
+          <th>Role</th>
           <th colspan="2">Menu</th>
         </tr>
       </thead>
@@ -34,11 +34,11 @@
             <span v-else>{{ user.role }}</span>
           </td>
           <td>
-            <button v-if="user.isEditing" @click.prevent="onSave(user)">Lưu</button>
-            <button v-else @click.prevent="onEdit(user)">Sửa</button>
+            <button v-if="user.isEditing" @click.prevent="onSave(user)">Save</button>
+            <button v-else @click.prevent="onEdit(user)">Edit</button>
           </td>
           <td>
-            <button @click.prevent="onDelete(user._id)">Xóa</button>
+            <button @click.prevent="onDelete(user._id)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -53,13 +53,13 @@ import axios from "axios";
 export default {
   data() {
     return {
-      users: [], // Mảng chứa thông tin người dùng
-      searchTerm: "", // Biến chứa từ khóa tìm kiếm
+      users: [], 
+      searchTerm: "", 
     };
   },
   computed: {
-    ...mapGetters(["authToken"]), // Lấy authToken từ Vuex
-    // Computed property để lọc người dùng theo từ khóa tìm kiếm
+    ...mapGetters(["authToken"]), 
+    
     filteredUsers() {
       return this.users.filter((user) => {
         const searchTerm = this.searchTerm.toLowerCase();
@@ -72,32 +72,32 @@ export default {
     },
   },
   created() {
-    this.fetchUsers(); // Lấy dữ liệu người dùng khi component được tạo
+    this.fetchUsers(); 
   },
   methods: {
-    // Lấy dữ liệu người dùng từ server
+    
     async fetchUsers() {
       try {
         const response = await axios.get("https://mevn-deploy-xp07.onrender.com/api/auth", {
           headers: {
-            Authorization: `Bearer ${this.authToken}`, // Thêm token vào header
+            Authorization: `Bearer ${this.authToken}`, 
           },
         });
-        this.users = response.data; // Gán dữ liệu vào mảng users
+        this.users = response.data; 
       } catch (error) {
-        console.error("Lỗi khi tải người dùng:", error);
+        console.error("Error loading user:", error);
       }
     },
 
-    // Hàm để sửa thông tin người dùng
+    
     onEdit(user) {
-      user.isEditing = true; // Đánh dấu người dùng là đang được chỉnh sửa
+      user.isEditing = true; 
     },
 
-    // Hàm để lưu thông tin người dùng đã sửa
+   
     async onSave(user) {
       try {
-        // Gửi yêu cầu PUT để sửa thông tin người dùng
+        
         await axios.put(
           `https://mevn-deploy-xp07.onrender.com/api/auth/${user._id}`,
           {
@@ -108,37 +108,37 @@ export default {
           },
           {
             headers: {
-              Authorization: `Bearer ${this.authToken}`, // Thêm token vào header
+              Authorization: `Bearer ${this.authToken}`, 
             },
           }
         );
 
-        user.isEditing = false; // Tắt chế độ chỉnh sửa sau khi lưu
-        alert("Cập nhật người dùng thành công!");
+        user.isEditing = false; 
+        alert("User updated successfully!");
       } catch (error) {
-        console.error("Lỗi khi sửa người dùng:", error);
-        alert("Không thể cập nhật người dùng. Vui lòng thử lại.");
+        console.error("Error while editing user:", error);
+        alert("Unable to update user. Please try again.");
       }
     },
 
-    // Hàm để xóa người dùng
+    
     async onDelete(userId) {
-      if (confirm("Bạn có chắc muốn xóa người dùng này?")) {
+      if (confirm("Are you sure you want to delete this user?")) {
         try {
-          // Gửi yêu cầu DELETE tới server
+          
           await axios.delete(`https://mevn-deploy-xp07.onrender.com/api/auth/${userId}`, {
             headers: {
-              Authorization: `Bearer ${this.authToken}`, // Thêm token vào header
+              Authorization: `Bearer ${this.authToken}`, 
             },
           });
 
-          // Cập nhật danh sách người dùng ngay lập tức
+         
           this.users = this.users.filter((user) => user._id !== userId);
 
-          alert("Đã xóa người dùng thành công!");
+          alert("User deleted successfully!");
         } catch (err) {
-          console.error("Lỗi khi xóa người dùng:", err);
-          alert("Không thể xóa người dùng. Vui lòng thử lại.");
+          console.error("Error while deleting user:", err);
+          alert("Unable to delete user. Please try again.");
         }
       }
     },

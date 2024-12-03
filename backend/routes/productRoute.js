@@ -1,16 +1,4 @@
-// routes/productRoutes.js
-// const express = require('express');
-// const router = express.Router();
-// const productController = require('../controllers/productController');
 
-// // Route để lấy tất cả sản phẩm
-
-
-// router.route('/products')
-//   .get(productController.getAllProducts);
-
-  
-// module.exports = router;
 
 
 const express = require('express');

@@ -1,7 +1,7 @@
-<!-- Home.vue -->
+
 <template>
   <div class="home-container">
-    <!-- Sorting Dropdown Component (đặt trên cùng) -->
+   
      <div class="sort">
         <SortDropdown @sort-changed="handleSortChanged" />
      </div>
@@ -36,7 +36,7 @@ export default {
       brands: ["Calvin Klein", "Diesel", "Polo", "Tommy Hilfiger"],
       minPrice: 0,
       maxPrice: 1000,
-      selectedSort: 'default', // Giá trị mặc định của lựa chọn sort
+      selectedSort: 'default', 
       filters: {
         category: [],
         brand: [],
@@ -50,37 +50,36 @@ export default {
       this.filters = filters;
     },
     handleSortChanged(sort) {
-      this.selectedSort = sort; // Cập nhật giá trị sắp xếp khi người dùng thay đổi lựa chọn
+      this.selectedSort = sort; 
     }
   }
 };
 </script>
 
 <style scoped>
-/* Container chính chứa tất cả các thành phần */
 .home-container {
   display: flex;
-  flex-direction: column; /* Đặt các thành phần theo chiều dọc */
-  gap: 20px; /* Khoảng cách giữa các thành phần */
+  flex-direction: column; 
+  gap: 20px; 
 }
 
-/* Định dạng cho phần nội dung chính (sidebar + product list) */
+
 .main-content {
   display: flex;
-  gap: 20px; /* Khoảng cách giữa Sidebar và ProductList */
+  gap: 20px; 
   margin-left: 130px;
 }
 
-/* Định nghĩa kích thước cho Sidebar */
+
 .main-content > FilterSidebar {
-  flex: 1; /* Sidebar chiếm 1 phần */
-  max-width: 250px; /* Đặt chiều rộng tối đa */
+  flex: 1; 
+  max-width: 250px; 
 }
 
-/* Định nghĩa kích thước cho ProductList */
+
 .main-content > ProductList {
-  flex: 3; /* ProductList chiếm nhiều không gian hơn */
-  width: 100%; /* Để ProductList chiếm phần còn lại */
+  flex: 3; 
+  width: 100%; 
 }
 .sort{
   margin-left: 675px ;

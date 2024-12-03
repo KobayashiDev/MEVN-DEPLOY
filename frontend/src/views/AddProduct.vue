@@ -109,14 +109,14 @@
           description: [],
           isOnSale: false,
         },
-        sizeInput: "", // Biến tạm để nhập danh sách size
-        descriptionInput: "", // Biến tạm để nhập danh sách mô tả
+        sizeInput: "", 
+        descriptionInput: "", 
       };
     },
     methods: {
       async submitForm() {
         try {
-          // Xử lý size và description từ input thành mảng
+         
           this.product.size = this.sizeInput.split(",").map((s) => s.trim());
           this.product.description = this.descriptionInput
             .split(",")
@@ -124,17 +124,17 @@
   
           // Gửi yêu cầu POST đến API backend
           const response = await axios.post(
-            "https://mevn-deploy-xp07.onrender.com/api/products", // Đổi URL nếu backend chạy trên cổng khác
+            "https://mevn-deploy-xp07.onrender.com/api/products", 
             this.product
           );
   
-          // Hiển thị thông báo khi thành công
+          
           alert(response.data.message || "Product added successfully!");
             this.$router.push('/management')
-          // Reset form sau khi thêm thành công
+          
           this.resetForm();
         } catch (err) {
-          // Xử lý lỗi và hiển thị thông báo
+          
           alert(err.response?.data?.message || "Failed to add product.");
           console.error(err);
         }
@@ -159,7 +159,7 @@
   </script>
   
   <style scoped>
-/* Đặt toàn bộ form vào giữa màn hình */
+
 div {
   display: flex;
   flex-direction: column;
@@ -168,7 +168,7 @@ div {
   font-family: Arial, sans-serif;
 }
 
-/* Tiêu đề form */
+
 h1 {
   font-size: 28px;
   color: #333;
@@ -176,7 +176,7 @@ h1 {
   text-align: center;
 }
 
-/* Form tổng thể */
+
 form {
   width: 100%;
   max-width: 500px;
@@ -187,12 +187,12 @@ form {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Các khung nhập liệu */
+
 form div {
   margin-bottom: 15px;
 }
 
-/* Label */
+
 label {
   display: block;
   font-size: 14px;
@@ -200,7 +200,7 @@ label {
   margin-bottom: 5px;
 }
 
-/* Input và textarea */
+
 input[type="text"],
 input[type="number"],
 input[type="checkbox"] {
@@ -212,13 +212,13 @@ input[type="checkbox"] {
   box-sizing: border-box;
 }
 
-/* Checkbox */
+
 input[type="checkbox"] {
   width: auto;
   margin-top: 10px;
 }
 
-/* Nút submit */
+
 button[type="submit"] {
   width: 100%;
   padding: 10px 15px;

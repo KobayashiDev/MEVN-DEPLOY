@@ -38,7 +38,7 @@ export default {
     };
   },
   async created() {
-    const userId = this.$store.getters.userId  // Lấy userId từ route params
+    const userId = this.$store.getters.userId  
     
     if (!userId) {
       alert('User ID is missing. Please log in again.');
@@ -47,11 +47,11 @@ export default {
     }
 
     try {
-      // Gửi userId qua route params thay vì query params
+     
       const response = await axios.get(`https://mevn-deploy-xp07.onrender.com/api/orders/${userId}`);
       
       if (response.data.success) {
-        this.orders = response.data.orders; // Gán lịch sử đơn hàng vào `orders`
+        this.orders = response.data.orders; 
       } else {
         alert('No orders found.');
       }
@@ -66,7 +66,7 @@ export default {
 
 
 <style scoped>
-/* Tổng quan cho toàn bộ trang */
+
 div {
   font-family: 'Arial', sans-serif;
   color: #333;
@@ -78,7 +78,7 @@ div {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Tiêu đề chính */
+
 h1 {
   text-align: center;
   color: #4CAF50;
@@ -86,14 +86,14 @@ h1 {
   font-size: 28px;
 }
 
-/* Trường hợp không có lịch sử */
+
 p {
   text-align: center;
   font-size: 16px;
   color: #999;
 }
 
-/* Danh sách đơn hàng */
+
 ul {
   list-style: none;
   padding: 0;
@@ -109,20 +109,20 @@ li {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* Hover effect cho từng đơn hàng */
+
 li:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Tiêu đề của từng đơn hàng */
+
 h3 {
   font-size: 20px;
   color: #333;
   margin-bottom: 10px;
 }
 
-/* Thông tin chi tiết */
+
 p {
   margin: 5px 0;
   font-size: 16px;
@@ -133,13 +133,13 @@ p span {
   color: #555;
 }
 
-/* Màu sắc tổng giá trị */
+
 p:nth-of-type(2) {
   color: #e91e63;
   font-weight: bold;
 }
 
-/* Ngày tháng */
+
 p:last-of-type {
   font-size: 14px;
   color: #777;

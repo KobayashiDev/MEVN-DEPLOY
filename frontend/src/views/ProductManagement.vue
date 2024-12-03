@@ -15,11 +15,11 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Lặp qua danh sách sản phẩm và hiển thị từng sản phẩm -->
+       
         <tr v-for="(product, index) in products" :key="index">
-          <!-- Hiển thị hình ảnh -->
+         
           <td><img :src="product.imageUrl" alt="Product Image" class="product-img" /></td>
-          <!-- Hiển thị thông tin -->
+          
           <td>{{ product.name }}</td>
           <td>{{ formatCurrency(product.price) }}</td>
           <td>{{ product.category }}</td>
@@ -31,7 +31,7 @@
             </span>
           </td>
           <td>
-            <!-- Dùng router-link với name và params -->
+            
             <router-link
               class="ui button yellow"
               :to="{ name: 'Edit', params: { id: product._id } }"
@@ -53,18 +53,18 @@ import axios from "axios";
 export default {
   data() {
     return {
-      products: [], //list of product
+      products: [], 
     };
   },
   computed: {
-    ...mapGetters(['authToken']), // Lấy token từ Vuex
+    ...mapGetters(['authToken']), 
   },
   async mounted() {
-    // Lấy dữ liệu sản phẩm từ API khi component được mount
+   
     try {
       const response = await axios.get("https://mevn-deploy-xp07.onrender.com/api/products", {
         headers: {
-          Authorization: `Bearer ${this.authToken}`, // Sử dụng token từ Vuex
+          Authorization: `Bearer ${this.authToken}`, 
         }
       });
       this.products = response.data;
@@ -73,7 +73,7 @@ export default {
     }
   },
   methods: {
-    // Format giá sản phẩm
+    
     formatCurrency(value) {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -83,14 +83,14 @@ export default {
     async onDelete(productId) {
       if (confirm("Are you sure you want to delete this product?")) {
         try {
-          // Gửi yêu cầu DELETE tới server với header Authorization
+          
           await axios.delete(`https://mevn-deploy-xp07.onrender.com/api/products/${productId}`, {
             headers: {
-              Authorization: `Bearer ${this.authToken}`, // Sử dụng token từ Vuex
+              Authorization: `Bearer ${this.authToken}`, 
             }
           });
 
-          // Xóa sản phẩm khỏi danh sách `products` (không cần reload toàn bộ trang)
+          
           this.products = this.products.filter(
             (product) => product._id !== productId
           );

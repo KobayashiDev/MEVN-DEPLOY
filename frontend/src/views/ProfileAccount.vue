@@ -5,7 +5,7 @@
       <p><strong>First Name:</strong> {{ user.firstName }}</p>
       <p><strong>Last Name:</strong> {{ user.lastName }}</p>
       <a  @click.prevent="changePassword">Change Password</a>
-      <button @click="deleteAccount">Delete Account</button>
+      
     </div>
   </template>
   
@@ -15,7 +15,7 @@
   export default {
     data() {
       return {
-        user: {}, // Lưu thông tin user
+        user: {}, 
       };
     },
     computed: {
@@ -30,7 +30,7 @@
               Authorization: `Bearer ${this.authToken}`,
             },
           });
-          this.user = response.data.user; // Cập nhật thông tin user
+          this.user = response.data.user;
         } catch (err) {
           console.error("Error fetching user info:", err.response?.data?.message || err.message);
           alert("Failed to load user information. Please login again.");
@@ -38,12 +38,6 @@
       },
       changePassword() {
         this.$router.push('/change');
-      },
-      deleteAccount() {
-        if (confirm("Are you sure you want to delete your account?")) {
-          alert("Account deleted!");
-          // Thực hiện logic xóa tài khoản tại đây
-        }
       },
     },
     created() {

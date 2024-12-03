@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>Danh sách đơn hàng</h1>
+    <h1>Order List</h1>
 
     <!-- Tìm kiếm đơn hàng theo ID -->
     <div>
       <input 
         type="text" 
         v-model="searchQuery" 
-        placeholder="Tìm kiếm theo ID đơn hàng..." 
+        placeholder="Search by order ID..." 
         @input="searchOrders"
       />
     </div>
@@ -16,10 +16,10 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Khách hàng</th>
-          <th>Tổng số tiền</th>
+          <th>Customer</th>
+          <th>Total amount</th>
           <th>Address</th>
-          <th>Trạng thái</th>
+          <th>Status</th>
           <th colspan="2">Menu</th>
         </tr>
       </thead>
@@ -38,76 +38,75 @@
 </template>
 
 <script>
-import axios from "axios"; // Import axios
-import { mapGetters } from 'vuex'; // Import mapGetters từ Vuex
+import axios from "axios"; 
+import { mapGetters } from 'vuex'; 
 
 export default {
   data() {
     return {
-      orders: [], // Danh sách đơn hàng
-      searchQuery: "", // Từ khóa tìm kiếm
-      filteredOrders: [], // Danh sách đơn hàng đã lọc theo từ khóa tìm kiếm
+      orders: [], 
+      searchQuery: "", 
+      filteredOrders: [], 
     };
   },
   created() {
-    this.fetchOrders(); // Lấy danh sách đơn hàng khi component được tạo
+    this.fetchOrders(); 
   },
   computed: {
-    ...mapGetters(['authToken']), // Lấy token từ Vuex
+    ...mapGetters(['authToken']), 
   },
   
   methods: {
-    // Lấy danh sách đơn hàng
+    
     async fetchOrders() {
       try {
         const response = await axios.get("https://mevn-deploy-xp07.onrender.com/api/orders", {
           headers: {
-            Authorization: `Bearer ${this.authToken}`, // Thêm Authorization header với token từ Vuex
+            Authorization: `Bearer ${this.authToken}`, 
           },
         });
-        this.orders = response.data; // Gán dữ liệu vào mảng orders
-        this.filteredOrders = this.orders; // Khởi tạo filteredOrders với tất cả các đơn hàng
+        this.orders = response.data; 
+        this.filteredOrders = this.orders; 
       } catch (error) {
-        console.error("Lỗi khi tải đơn hàng", error);
+        console.error("Error loading order", error);
       }
     },
-    
-    // Tìm kiếm đơn hàng theo ID
+   
     searchOrders() {
       if (this.searchQuery === "") {
-        this.filteredOrders = this.orders; // Nếu không có từ khóa tìm kiếm, hiển thị tất cả đơn hàng
+        this.filteredOrders = this.orders; 
       } else {
-        // Lọc theo ID đơn hàng
+        
         this.filteredOrders = this.orders.filter(order =>
           order._id.toLowerCase().includes(this.searchQuery.toLowerCase())
         );
       }
     },
     
-    // Xóa một đơn hàng
+   
     async onDelete(orderId) {
-      if (confirm("Bạn có chắc muốn xóa đơn hàng này?")) {
+      if (confirm("Are you sure you want to delete this order?")) {
         try {
-          // Gửi yêu cầu DELETE tới server với header Authorization
+          
           await axios.delete(`https://mevn-deploy-xp07.onrender.com/api/orders/${orderId}`, {
             headers: {
-              Authorization: `Bearer ${this.authToken}`, // Thêm Authorization header với token từ Vuex
+              Authorization: `Bearer ${this.authToken}`,
             },
           });
 
-          // Cập nhật danh sách đơn hàng sau khi xóa
+          
           this.orders = this.orders.filter((order) => order._id !== orderId);
-          this.searchOrders(); // Cập nhật danh sách đã lọc sau khi xóa
+          this.searchOrders();
 
-          alert("Đã xóa đơn hàng thành công!");
+          alert("Order deleted successfully!");
         } catch (err) {
-          console.error("Lỗi khi xóa đơn hàng:", err);
-          alert("Không thể xóa đơn hàng. Vui lòng thử lại.");
+          console.error("Error when deleting order:", err);
+          alert("Unable to delete order. Please try again.");
         }
       }
     },
     
-    // Định dạng tiền tệ
+
     formatCurrency(value) {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -122,7 +121,7 @@ export default {
   
   
   <style scoped>
-  /* CSS cho bảng đơn hàng */
+ 
   .order-table {
     width: 100%;
     border-collapse: collapse;

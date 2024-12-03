@@ -81,7 +81,7 @@ export default {
       this.$router.push('/profile');
     },
     logoutUser() {
-      this.logout(); // Gọi action logout từ Vuex
+      this.logout(); 
       this.$router.push('/');
     }
   }
@@ -108,7 +108,7 @@ export default {
   padding: 15px 30px;
   background-color: #fff;
   height: 100px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); 
 }
 
 
@@ -131,18 +131,18 @@ font-family: 'Montserrat', sans-serif;
 font-weight: bold;
 }
 
-/* CSS cho phần menu */
+
 nav ul li a {
 font-family: 'Montserrat', sans-serif;
 font-size: 100px;
-color: #333; /* Màu chữ mặc định */
+color: #333; 
 
 
 }
 
-/* Khi hover vào menu item */
+
 nav ul li a:hover {
-border-bottom: 1px solid #000; /* Đường kẻ chân dưới khi hover */
+border-bottom: 1px solid #000; 
 }
 
 
@@ -164,27 +164,27 @@ header .icons img {
 
 
 .search-container {
-  position: relative; /* Đặt vị trí tương đối cho khối chứa */
-  width: fit-content; /* Chiều rộng tự động phù hợp với nội dung */
-  box-shadow: 0 4px 8px rgba(0, 0, 0.1, 0.1); /* Tạo bóng cho ô nhập */
+  position: relative; 
+  width: fit-content; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0.1, 0.1); 
 }
 
 .search-container input {
-  padding-right: 30px; /* Thêm khoảng trống bên phải để không bị đè lên biểu tượng */
-  padding-left: 10px; /* Thêm khoảng trống bên trái */
-  height: 36px; /* Chiều cao ô nhập */
-  border: 1px solid #ccc; /* Đường viền cho ô nhập */
-  border-radius: 4px; /* Bo góc cho ô nhập */
+  padding-right: 30px; 
+  padding-left: 10px; 
+  height: 36px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
    
 }
 
 .search-container img {
-  position: absolute; /* Đặt biểu tượng ở vị trí tuyệt đối */
-  top: 50%; /* Đặt vị trí từ trên xuống giữa */
-  right: 10px; /* Khoảng cách từ bên phải */
-  transform: translateY(-50%); /* Canh giữa theo chiều dọc */
-  display: flex; /* Đảm bảo biểu tượng nằm trong flexbox */
-  align-items: center; /* Canh giữa biểu tượng */
+  position: absolute; 
+  top: 50%; 
+  right: 10px; 
+  transform: translateY(-50%); 
+  display: flex; 
+  align-items: center; 
 }
 
 .icons {

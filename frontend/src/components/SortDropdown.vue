@@ -13,12 +13,12 @@
 export default {
   data() {
     return {
-      selectedSort: 'default', // Giá trị mặc định là "Default Sorting"
+      selectedSort: 'default', 
     };
   },
   methods: {
     applySort() {
-      this.$emit('sort-changed', this.selectedSort); // Gửi sự kiện "sort-changed" với giá trị mới
+      this.$emit('sort-changed', this.selectedSort); 
     }
   }
 };

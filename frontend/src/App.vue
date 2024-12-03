@@ -35,20 +35,20 @@ export default {
     AdminHeader,
   },
   computed: {
-    ...mapGetters(['userRole']), // Lấy role từ Vuex
+    ...mapGetters(['userRole']), 
     role() {
-      return this.userRole; // Đặt alias cho `userRole` để dùng trong template
+      return this.userRole; 
     },
   },
   created() {
-    // Khi component được tạo, lấy role từ localStorage nếu có
+    
     const savedRole = localStorage.getItem('Role');
     if (savedRole && savedRole !== this.userRole) {
-      this.setRole(savedRole); // Cập nhật lại role trong Vuex
+      this.setRole(savedRole); 
     }
   },
   methods: {
-    ...mapActions(['setUserRole']), // Hành động Vuex để cập nhật role
+    ...mapActions(['setUserRole']), 
   },
 };
 </script>

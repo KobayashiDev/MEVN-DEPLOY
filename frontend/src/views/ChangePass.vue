@@ -44,7 +44,7 @@
         }
   
         try {
-          this.errorMessage = ""; // Xóa lỗi cũ nếu có
+          this.errorMessage = ""; 
           await axios.post(
             "https://mevn-deploy-xp07.onrender.com/api/auth/change",
             {
@@ -58,7 +58,7 @@
             }
           );
           alert("Password changed successfully!");
-          this.$router.push("/profile"); // Điều hướng về trang profile
+          this.$router.push("/profile"); 
         } catch (err) {
           console.error("Error changing password:", err.response?.data?.message || err.message);
           this.errorMessage = err.response?.data?.message || "Failed to change password. Please try again.";

@@ -1,17 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
-// const authController = require('../controllers/authController');
-
-
-// router.route('/register')
-//   .post(authController.register);
-
-// router.route('/login') 
-//   .post(authController.login);
-
-// router.route('/logout')
-//   .post(authController.logout);
-// module.exports = router;
 
 
 const express = require('express');
@@ -19,12 +5,12 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
-// Các route cần kiểm tra quyền truy cập của admin
-router.route('/').get(authController.getUsers); // Chỉ admin mới có thể xem danh sách người dùng
+
+router.route('/').get(authController.getUsers); 
 
 router.route('/:id')
-  .put(authMiddleware, authController.editUserById)  // Chỉ admin mới có thể chỉnh sửa người dùng
-  .delete(authMiddleware, authController.deleteUserById); // Chỉ admin mới có thể xóa người dùng
+  .put(authMiddleware, authController.editUserById)  
+  .delete(authMiddleware, authController.deleteUserById); 
 
 // Các route xác thực không yêu cầu quyền admin
 router.route('/register')

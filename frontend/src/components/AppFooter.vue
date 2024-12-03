@@ -3,15 +3,15 @@
 <template>
     <footer class="footer">
       <div class="footer-container">
-        <!-- Cột thông tin liên hệ -->
+        
         <div class="footer-column">
           <h3>Contact information</h3>
           <p>Email: duongdtgch220254@fpt.edu.vn</p>
-          <p>Điện thoại: (+84) 0852847743</p>
-          <p>Địa chỉ: 123 Đường ABC, TP.HCM</p>
+          <p>Phone: (+84) 0852847743</p>
+          <p>Address: 123 Đường ABC, TP.HCM</p>
         </div>
   
-        <!-- Cột điều hướng -->
+        
         <div class="footer-column">
           <h3>Customer Support</h3>
           <ul>
@@ -22,7 +22,7 @@
           </ul>
         </div>
   
-        <!-- Cột liên kết mạng xã hội -->
+        
         <div class="footer-column">
     <h3>Follow Us</h3>
     <ul class="social-links">
@@ -44,7 +44,7 @@
     </ul>
   </div>
   
-        <!-- Cột đăng ký nhận tin -->
+        
         <div class="footer-column">
           <h3>Newsletter</h3>
           <form @submit.prevent="subscribe">
@@ -67,9 +67,9 @@
     },
     methods: {
       subscribe() {
-        // Xử lý đăng ký nhận tin bằng email
+       
         alert(`Đã đăng ký nhận tin bằng email: ${this.email}`);
-        this.email = ''; // Xóa trường email sau khi gửi
+        this.email = ''; 
       }
     }
   };

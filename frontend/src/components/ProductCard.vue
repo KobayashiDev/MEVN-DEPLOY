@@ -41,25 +41,25 @@ export default {
 
 .add-to-cart-button {
   position: absolute;
-  bottom: 30px; /* Đặt nút cách đáy hình ảnh */
+  bottom: 30px; 
   left: 50%;
-  transform: translateX(-50%) translateY(20px); /* Đặt nút ra ngoài và ẩn đi */
+  transform: translateX(-50%) translateY(20px); 
   padding: 10px 20px;
-  background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+  background-color: rgba(0, 0, 0, 0.5); 
   color: white;
   border: none;
   cursor: pointer;
   opacity: 0; /* Ẩn nút ban đầu */
-  transition: opacity 0.2s ease, transform 0.3s ease; /* Hiệu ứng mờ dần và di chuyển */
+  transition: opacity 0.2s ease, transform 0.3s ease; 
 }
 
 .image-container:hover .add-to-cart-button {
-  opacity: 1; /* Hiển thị nút khi hover vào container */
-  transform: translateX(-50%) translateY(0); /* Di chuyển nút lên vị trí ban đầu */
+  opacity: 1; 
+  transform: translateX(-50%) translateY(0); 
 }
 
 .add-to-cart-button:hover {
-  background-color: rgba(0, 0, 0, 0.8); /* Thay đổi màu khi hover */
+  background-color: rgba(0, 0, 0, 0.8); 
 }
 .product-card {
   background-color: #fff;

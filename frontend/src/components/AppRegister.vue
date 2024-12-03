@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     async handleRegister() {
-      // Kiểm tra thông tin nhập vào (như email hợp lệ, mật khẩu đủ mạnh)
+      
       if (!this.firstName || !this.lastName || !this.email || !this.password) {
         alert("All fields are required.");
         return;
@@ -61,12 +61,12 @@ export default {
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email,
-          password: this.password,  // Gửi mật khẩu đã được nhập, server sẽ mã hóa mật khẩu
+          password: this.password,  
         });
 
         if (response.data.success) {
           alert("Registration successful!");
-          this.$router.push("/login"); // Điều hướng đến trang login
+          this.$router.push("/login"); 
         } else {
           alert("Registration failed. Please try again.");
         }
@@ -81,7 +81,7 @@ export default {
 
     
     <style scoped>
-    /* Basic styling for the login form */
+    
     .login-container {
       width: 100%;
       max-width: 400px;

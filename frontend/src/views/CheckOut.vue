@@ -1,54 +1,50 @@
 <template>
-    <form @submit.prevent="checkout" class="checkout-form">
-      <!-- Thông tin khách hàng -->
-      <div class="customer-info">
-        <h3>Thông tin khách hàng</h3>
-        
-        <input 
-          type="text" 
-          v-model="customer.name" 
-          placeholder="Họ và tên" 
-          required 
-        />
-        <input 
-          type="text" 
-          v-model="customer.phone" 
-          placeholder="Số điện thoại" 
-          required 
-        />
-        <textarea 
-          v-model="customer.address" 
-          placeholder="Địa chỉ nhận hàng" 
-          required
-        ></textarea>
-       </div> 
-  
-      <!-- Giỏ hàng -->
-      <div class="cart-info">
-        <h3>Giỏ hàng</h3>
-        <ul class="cart-list">
-            <li v-for="item in cartItems" :key="item._id" class="cart-item">
-            <div class="cart-item-wrapper">
-                <div class="item-image-container">
-                <img :src="item.imageUrl" :alt="item.name" class="item-thumbnail" />
-                <span class="item-quantity">{{ item.quantity }}</span>
-                </div>
-                <div class="item-details">
-                <p class="item-name">{{ item.name }}</p>
-                <p class="item-price">{{ formatCurrency(item.price) }}</p>
-                </div>
+  <form @submit.prevent="checkout" class="checkout-form">
+    <div class="customer-info">
+      <h3>Customer Information</h3>
+      <input 
+        type="text" 
+        v-model="customer.name" 
+        placeholder="Full name" 
+        required 
+      />
+      <input 
+        type="text" 
+        v-model="customer.phone" 
+        placeholder="Phone number" 
+        required 
+      />
+      <textarea 
+        v-model="customer.address" 
+        placeholder="Delivery address" 
+        required
+      ></textarea>
+    </div> 
+
+    <div class="cart-info">
+      <h3>Cart</h3>
+      <ul class="cart-list">
+        <li v-for="item in cartItems" :key="item._id" class="cart-item">
+          <div class="cart-item-wrapper">
+            <div class="item-image-container">
+              <img :src="item.imageUrl" :alt="item.name" class="item-thumbnail" />
+              <span class="item-quantity">{{ item.quantity }}</span>
             </div>
-            </li>
-        </ul>
-        </div>
-  
-      <!-- Tổng tiền -->
-      <div class="order-summary">
-        <h3>Tổng tiền: {{ formatCurrency(totalAmount) }}</h3>
-        <button type="submit" class="checkout-button">Thanh toán</button>
-      </div>
-    </form>
-  </template>
+            <div class="item-details">
+              <p class="item-name">{{ item.name }}</p>
+              <p class="item-price">{{ formatCurrency(item.price) }}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="order-summary">
+      <h3>Total: {{ formatCurrency(totalAmount) }}</h3>
+      <button type="submit" class="checkout-button">Payment</button>
+    </div>
+  </form>
+</template>
 
 <script>
 import axios from 'axios';
@@ -56,13 +52,10 @@ export default {
   data() {
     return {
       cartItems: [], 
-
-      
       customer: {
         name: '',
         phone: '',
         address: '',
-        
       }
     };
   },
@@ -73,35 +66,31 @@ export default {
         this.cartItems = cart;
       }
     },
-    
+
     async checkout() {
-  try {
-    const userId = this.$store.getters.userId || null; // Lấy userId từ Vuex
+      try {
+        const userId = this.$store.getters.userId || null;
 
-    // Gửi yêu cầu thanh toán
-    const response = await axios.post('https://mevn-deploy-xp07.onrender.com/api/orders', {
-      userId,
-      cartItems: this.cartItems,
-      totalAmount: this.totalAmount,
-      customer: this.customer
-    });
+        const response = await axios.post('https://mevn-deploy-xp07.onrender.com/api/orders', {
+          userId,
+          cartItems: this.cartItems,
+          totalAmount: this.totalAmount,
+          customer: this.customer
+        });
 
-      if (response.data) {
-        // Hiển thị thông báo thanh toán thành công
-        alert('Thanh toán thành công!');
-        
-        // Xóa giỏ hàng sau khi thanh toán
-        localStorage.removeItem('cart');
-        this.cartItems = []; // Xóa dữ liệu giỏ hàng trong giao diện
-        this.$router.push("/")
-      } else {
-        alert('Thanh toán thất bại: ' + response.data.message);
+        if (response.data) {
+          alert('Payment successful!');
+          localStorage.removeItem('cart');
+          this.cartItems = []; 
+          this.$router.push("/")
+        } else {
+          alert('Payment failed: ' + response.data.message);
+        }
+      } catch (error) {
+        console.error('Payment error:', error);
+        alert('An error occurred during payment.');
       }
-    } catch (error) {
-      console.error('Thanh toán lỗi:', error);
-      alert('Đã xảy ra lỗi khi thanh toán.');
-    }
-  },
+    },
 
     formatCurrency(value) {
       return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
@@ -116,9 +105,8 @@ export default {
     this.fetchCartItems();
   }
 };
-
-  
 </script>
+
 <style scoped>
 .checkout-form {
   display: flex;

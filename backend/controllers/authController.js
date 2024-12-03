@@ -15,43 +15,43 @@ const authController = {
   register: async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
 
-    // Kiểm tra nếu các trường bắt buộc không được gửi lên
+    
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({ success: false, message: "All fields are required." });
     }
 
     try {
-      // Kiểm tra nếu email đã tồn tại
+      
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ success: false, message: "Email is already in use." });
       }
 
-      // Mã hóa mật khẩu
+      
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // Tạo mới người dùng
+      
       const user = new User({ firstName, lastName, email, password: hashedPassword });
 
-      // Lưu người dùng vào cơ sở dữ liệu
+    
       await user.save();
 
-      // Tạo token JWT sau khi người dùng được đăng ký thành công
+      
       const token = jwt.sign(
         { 
-          userId: user._id,  // Payload: thông tin người dùng cần mã hóa (ở đây là ID người dùng)
-          role: user.role    // Thêm role vào token để quản lý quyền hạn
+          userId: user._id,  
+          role: user.role    
         }, 
         
-        process.env.JWT_SECRET,  // Khóa bí mật từ tệp .env (hoặc bạn có thể cứng hóa trực tiếp)
-        { expiresIn: '1h' } // Thời gian hết hạn của token (ví dụ: 1 giờ)
+        process.env.JWT_SECRET,  
+        { expiresIn: '1h' } 
       );
 
-      // Trả về phản hồi thành công và token
+      
       res.status(201).json({
         success: true,
         message: "User registered successfully.",
-        token: token  // Trả về token cho client
+        token: token  
       });
     } catch (error) {
       console.error("Error registering user:", error);
@@ -73,7 +73,7 @@ const authController = {
         return res.status(400).json({ success: false, message: 'Invalid credentials' });
       }
 
-      // Tạo token JWT sau khi người dùng đăng nhập thành công
+    
       const token = jwt.sign(
         { userId: user._id, role: user.role },
         process.env.JWT_SECRET,
@@ -83,8 +83,8 @@ const authController = {
       res.json({
         success: true,
         token: token,
-        role: user.role, // Trả về role của user
-        userId: user._id // Đảm bảo trả về userId trong response
+        role: user.role, 
+        userId: user._id 
       });
     } catch (error) {
       console.error("Error logging in:", error);
@@ -93,8 +93,8 @@ const authController = {
   },
   getUsers: async (req, res) => {
     try {
-      const users = await User.find(); // Lấy tất cả người dùng từ cơ sở dữ liệu
-      res.status(200).json(users); // Trả về danh sách người dùng
+      const users = await User.find(); 
+      res.status(200).json(users); 
     } catch (error) {
       console.error("Error fetching users:", error);
       res.status(500).json({ success: false, message: "Server error" });
@@ -102,13 +102,13 @@ const authController = {
   },
   editUserById: async (req, res) => {
     try {
-      const id = req.params.id; // Lấy ID từ URL
-      const data = req.body;     // Lấy dữ liệu mới từ body của request
+      const id = req.params.id; 
+      const data = req.body;     
 
-      // Cập nhật sản phẩm trong DB bằng findByIdAndUpdate
+      
       await User.findByIdAndUpdate(id, data);
 
-      // Trả về thông báo thành công
+      
       res.json({ message: "User updated successfully!" });
     } catch (err) {
       res.status(500).send(err);
@@ -135,24 +135,24 @@ const authController = {
     }
 
     try {
-      // Kiểm tra email có tồn tại không
+      
       const user = await User.findOne({ email });
       if (!user) {
         return res.status(404).json({ success: false, message: "User not found." });
       }
 
-      // Tạo token reset mật khẩu
+      
       const resetToken = crypto.randomBytes(32).toString("hex");
-      const resetTokenExpiry = Date.now() + 15 * 60 * 1000; // Hết hạn sau 15 phút
+      const resetTokenExpiry = Date.now() + 15 * 60 * 1000; 
 
-      // Cập nhật token và hạn vào user
+      
       user.resetToken = resetToken;
       user.resetTokenExpiry = resetTokenExpiry;
       await user.save();
 
-      // Tạo email
+      
       const transporter = nodemailer.createTransport({
-        service: "Gmail", // Hoặc SMTP server khác
+        service: "Gmail", 
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASS,
@@ -169,7 +169,7 @@ const authController = {
                <p>This link will expire in 15 minutes.</p>`,
       };
 
-      // Gửi email
+      
       await transporter.sendMail(mailOptions);
 
       res.status(200).json({ success: true, message: "Password reset email sent." });
@@ -179,7 +179,7 @@ const authController = {
     }
   },
 
-  // Đặt lại mật khẩu
+  
   resetPassword: async (req, res) => {
     const { token, newPassword } = req.body;
 
@@ -188,20 +188,20 @@ const authController = {
     }
 
     try {
-      // Tìm người dùng theo token và kiểm tra hạn token
+      
       const user = await User.findOne({
         resetToken: token,
-        resetTokenExpiry: { $gt: Date.now() }, // Token phải còn hạn
+        resetTokenExpiry: { $gt: Date.now() }, 
       });
 
       if (!user) {
         return res.status(400).json({ success: false, message: "Invalid or expired token." });
       }
 
-      // Mã hóa mật khẩu mới và cập nhật user
+      
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       user.password = hashedPassword;
-      user.resetToken = undefined; // Xóa token sau khi dùng
+      user.resetToken = undefined; 
       user.resetTokenExpiry = undefined;
       await user.save();
 
@@ -213,13 +213,13 @@ const authController = {
   },
   getUserInfo: async (req, res) => {
     try {
-      // Xác thực JWT từ header Authorization
+      
       const token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const userId = decoded.userId;
   
-      // Tìm user theo ID
-      const user = await User.findById(userId, '-password'); // Loại bỏ trường password khỏi kết quả
+     
+      const user = await User.findById(userId, '-password'); 
       if (!user) return res.status(404).json({ success: false, message: "User not found." });
   
       res.status(200).json({ success: true, user });
@@ -231,30 +231,30 @@ const authController = {
     const { oldPassword, newPassword } = req.body;
 
     try {
-      // Xác thực JWT từ header Authorization
-      const token = req.headers.authorization.split(' ')[1]; // Lấy token từ header
-      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Giải mã token JWT
-      const userId = decoded.userId; // Lấy userId từ token đã giải mã
+     
+      const token = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); 
+      const userId = decoded.userId; 
 
-      // Tìm user theo ID
-      const user = await User.findById(userId); // Tìm user theo ID trong cơ sở dữ liệu
+     
+      const user = await User.findById(userId); 
       if (!user) return res.status(404).json({ message: "User not found." });
 
-      // Kiểm tra mật khẩu cũ
+      
       const isMatch = await bcrypt.compare(oldPassword, user.password);
       if (!isMatch) {
-        return res.status(400).json({ message: "Mật khẩu cũ không đúng." });
+        return res.status(400).json({ message: "Old password is incorrect." });
       }
 
-      // Hash mật khẩu mới và cập nhật
+      
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       user.password = hashedPassword;
-      await user.save(); // Lưu thông tin user với mật khẩu mới
+      await user.save(); 
 
-      res.json({ message: "Đổi mật khẩu thành công!" });
+      res.json({ message: "Password changed successfully!" });
     } catch (err) {
-      console.error("Lỗi khi đổi mật khẩu:", err.message);
-      res.status(500).json({ message: "Lỗi máy chủ. Vui lòng thử lại sau." });
+      console.error("Error changing password:", err.message);
+      res.status(500).json({ message: "Server error. Please try again later." });
     }
   }
   

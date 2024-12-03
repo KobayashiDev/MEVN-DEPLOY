@@ -139,27 +139,27 @@ header .icons img {
 }
 
 .search-container {
-    position: relative; /* Đặt vị trí tương đối cho khối chứa */
-    width: fit-content; /* Chiều rộng tự động phù hợp với nội dung */
-    box-shadow: 0 4px 8px rgba(0, 0, 0.1, 0.1); /* Tạo bóng cho ô nhập */
+    position: relative; 
+    width: fit-content; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0.1, 0.1); 
 }
 
 .search-container input {
-    padding-right: 30px; /* Thêm khoảng trống bên phải để không bị đè lên biểu tượng */
-    padding-left: 10px; /* Thêm khoảng trống bên trái */
-    height: 36px; /* Chiều cao ô nhập */
-    border: 1px solid #ccc; /* Đường viền cho ô nhập */
-    border-radius: 4px; /* Bo góc cho ô nhập */
+    padding-right: 30px; 
+    padding-left: 10px; 
+    height: 36px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
      
 }
 
 .search-container img {
-    position: absolute; /* Đặt biểu tượng ở vị trí tuyệt đối */
-    top: 50%; /* Đặt vị trí từ trên xuống giữa */
-    right: 10px; /* Khoảng cách từ bên phải */
-    transform: translateY(-50%); /* Canh giữa theo chiều dọc */
-    display: flex; /* Đảm bảo biểu tượng nằm trong flexbox */
-    align-items: center; /* Canh giữa biểu tượng */
+    position: absolute; 
+    top: 50%; 
+    right: 10px; 
+    transform: translateY(-50%); 
+    display: flex; 
+    align-items: center; 
 }
 
 .icons a {
@@ -175,7 +175,7 @@ header .icons img {
     height: 600px;
 }
 
-/* Cập nhật slider với hiệu ứng vuốt */
+
       
 .slides {
     display: flex;
