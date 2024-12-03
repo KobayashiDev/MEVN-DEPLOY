@@ -196,10 +196,10 @@ const authController = {
         return res.status(400).json({ success: false, message: "Invalid or expired token." });
       }
 
-      // Mã hóa mật khẩu mới và cập nhật user
+      
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       user.password = hashedPassword;
-      user.resetToken = undefined; // Xóa token sau khi dùng
+      user.resetToken = undefined; 
       user.resetTokenExpiry = undefined;
       await user.save();
 
